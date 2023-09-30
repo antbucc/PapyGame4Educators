@@ -1,0 +1,55 @@
+version: '3.3'
+
+services:
+  web-client:
+    build:
+      context: ./node-editor
+      args:
+        - TEST_MODE=true
+        - BACK_URL=http://localhost:5001
+    ports:
+      - 3000:3000
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+  backend:
+    build: ./backend
+    ports:
+      - 5001:5000
+    # volumes:
+    #   - ./backend:/backend
+    # command: npm run dev
+    environment:
+      - MONGODB_URI=mongodb://prova:SECRET@mongodb:27017
+      - CORS_ORIGINS=http://localhost:3000
+      - COOKIE_KEY=any_long_and_random_string
+      - TEST_MODE=true
+      - OPENAI_SECRET_KEY=INSERT_VALUE
+      - OPENAI_ENDPOINT=INSERT_VALUE
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://backend:5000/api/search/autocomplete || exit 1
+      interval: 30s
+      timeout: 10s
+      start_period: 20s
+      retries: 3
+  mongodb:
+    image: mongo:5.0
+    ports:
+      - 27017:27017
+    # volumes:
+    #   - ~/apps/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=prova
+      - MONGO_INITDB_ROOT_PASSWORD=SECRET
+    restart: unless-stopped
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongodb:27017 --quiet
+      interval: 30s
+      timeout: 10s
+      start_period: 20s
+      retries: 3

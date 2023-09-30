@@ -1,0 +1,6 @@
+[submodule "node-editor"]
+	path = node-editor
+	url = https://github.com/polyglot-edu/node-editor.git
+[submodule "backend"]
+	path = backend
+	url = https://github.com/polyglot-edu/backend.git
