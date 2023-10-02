@@ -76,7 +76,8 @@ export const unconditionalEdgeSchema = new mongoose.Schema({
 
 export const OCLConstraintsEdgeSchema = new mongoose.Schema({
   data: {
-    constraints: {type: String}
+    constraints: {type: String},
+    conditionKind: {type: String, enum: ['pass', 'fail']}
   }
 },options);
 

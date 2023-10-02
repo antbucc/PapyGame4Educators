@@ -18,6 +18,7 @@ export type ExportJsonModalProps = {
 };
 
 const JSONfilter = [
+  'author',
   'nodes',
   'edges',
   'type',
