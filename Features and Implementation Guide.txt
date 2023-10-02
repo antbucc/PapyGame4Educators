@@ -1,0 +1,35 @@
+Main Features
+-------------
+
+You can use this tool to model learning paths for the purpose of use in PapyGame. You can create nodes such as Lesson Nodes, Multiple choice Question Nodes and Practice Nodes among others. These are they jonied together by edges such as an Unconditional Edge, A Pass/Fail Edge and, uniquely for the Practice Node, An OCL Constraints Edge. You can then Export A JSON file from the created flow diagram that can be imported directly into PapyGame.
+
+The Practice Node is a node to use to model questions to test a students Papyrus skills and the OCL Constraints Edge has an OCL editor in it to use in validating students models.
+
+How to add a Node
+-----------------
+
+1) Add a mongoose schema for your new node in ./backend/src/models/node.model.ts
+
+2) Add an export statement at the end of the same file
+
+3) Add a new type for your node in ./node-editor/src/types/polyglotElements/nodes
+
+4) Add your new type to the index.ts file in the same directory
+
+5) Add a new properties file in ./node-editor/src/components/Properties/Nodes
+
+6) Add a new React Flow file in ./node-editor/src/components/ReactFlowNode
+
+7) Add your new React Flow Node to the index in the same directory
+
+
+How to add an Edge
+------------------
+
+1) Add a mongoose schema for your new edge in ./backend/src/models/node.model.ts
+
+2) Add an export statement at the end of the same file
+
+3) Add a new type for your edge in ./node-editor/src/types/polyglotElements/edges
+
+4) Add your new type to the index.ts file in the same directory
